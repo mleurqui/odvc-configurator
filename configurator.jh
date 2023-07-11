@@ -1,0 +1,75 @@
+
+entity Option {
+	value String
+    description String
+    image String
+    createdAt Instant
+    updatedAt Instant
+}
+
+entity Step {
+	title String
+    description String
+    image String
+    componentType String
+    createdAt Instant
+    updatedAt Instant
+}
+
+entity Model {
+	name String
+	brand String
+	description String
+	defaultPromiseDelay Integer
+    maxPromiseDelay Integer
+    createdAt Instant
+    updatedAt Instant
+}
+
+entity Component {
+	sku String
+	name String
+	brand String
+    weight Double
+    price Double
+	description String
+    descriptionLong String
+    image2d String
+    image3d String
+	replenishementDays Integer
+    componentType String
+    createdAt Instant
+    updatedAt Instant
+}
+
+entity Configuration {
+	name String
+	createdAt Instant
+    updatedAt Instant
+}
+
+entity User {
+	uuid String
+    mail String
+    createdAt Instant
+    updatedAt Instant
+}
+
+relationship ManyToMany {
+  Model{step} to Step{model}
+  Step{component} to Component{step}
+}
+
+relationship ManyToOne {
+  Step{option} to Option{step}
+  User{configuration} to Configuration{user}
+}
+
+// Use Data Transfer Objects (DTO)
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl
+
+// Set an angular suffix
+// angularSuffix * with mySuffix
